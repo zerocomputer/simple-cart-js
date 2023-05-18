@@ -32,6 +32,19 @@
         for (let amountElement of document.querySelectorAll('[zero-cart-amount]')) {
             amountElement.textContent = getAmount();
         }
+
+        // TODO: оптимизировать
+        for (let addToCartElement of document.querySelectorAll('.add_to_cart')) {
+            addToCartElement.addEventListener('click', (e) => {
+                add(getRequiredAttrsFromElement(addToCartElement));
+            });
+        }
+
+        for (let removeFromCartElement of document.querySelectorAll('.remove_from_cart')) {
+            removeFromCartElement.addEventListener('click', () => {
+                remove(getRequiredAttrsFromElement(removeFromCartElement));
+            });
+        }
     }
     // Saving cart to local storage
     const save = () => {
@@ -96,17 +109,5 @@
     // Initialization
     document.addEventListener('DOMContentLoaded', () => {
         reload();
-
-        for (let addToCartElement of document.querySelectorAll('.add_to_cart')) {
-            addToCartElement.addEventListener('click', (e) => {
-                add(getRequiredAttrsFromElement(addToCartElement));
-            });
-        }
-
-        for (let removeFromCartElement of document.querySelectorAll('.remove_from_cart')) {
-            removeFromCartElement.addEventListener('click', () => {
-                remove(getRequiredAttrsFromElement(removeFromCartElement));
-            });
-        }
     });
 })();
