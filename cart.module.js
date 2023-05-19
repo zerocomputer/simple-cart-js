@@ -22,6 +22,7 @@
         for (let product of cart) {
             let productElement = document.createElement('div');
             productElement.innerHTML = `
+                <img src="${product.image}" alt="Placeholder image">
                 <h1>${product.name}</h1>
                 <p>${product.price} x ${product.count}</p>
             `;
@@ -33,14 +34,25 @@
             amountElement.textContent = getAmount();
         }
 
-        // TODO: оптимизировать
         for (let addToCartElement of document.querySelectorAll('.add_to_cart')) {
+            if (addToCartElement.getAttribute('listen')) {
+                continue;
+            }
+
+            addToCartElement.setAttribute('listen', true);
+
             addToCartElement.addEventListener('click', (e) => {
                 add(getRequiredAttrsFromElement(addToCartElement));
             });
         }
 
         for (let removeFromCartElement of document.querySelectorAll('.remove_from_cart')) {
+            if (removeFromCartElement.getAttribute('listen')) {
+                continue;
+            }
+
+            removeFromCartElement.setAttribute('listen', true);
+
             removeFromCartElement.addEventListener('click', () => {
                 remove(getRequiredAttrsFromElement(removeFromCartElement));
             });
@@ -57,11 +69,11 @@
         }
     }
     // Adding product to cart
-    const add = ({id, name, price}) => {
+    const add = ({id, name, price, image}) => {
         let product = cart.filter((x) => x.id === id || x.name === name);
         
         if (product.length === 0) {
-            cart.push({id, name, price, count: 1});
+            cart.push({id, name, price, image, count: 1});
         } else {
             cart[cart.indexOf(product[0])].count++;
         }
@@ -93,6 +105,7 @@
             id: element.getAttribute('zero-cart-id'),
             name: element.getAttribute('zero-cart-name'),
             price: element.getAttribute('zero-cart-price'),
+            image: element.getAttribute('zero-cart-image'),
         };
     }
     // Get almost amount of all products in cart
