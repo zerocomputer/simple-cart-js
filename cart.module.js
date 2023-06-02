@@ -36,24 +36,28 @@
         if (cartWindow === null) {
             cartWindow.innerHTML = ``;
 
-            for (let product of cart) {
-                let productElement = document.createElement('div');
-                productElement.className = 'border rounded p-4 mb-2 d-flex align-items-center'
-                productElement.style.gap = '16px';
-                productElement.innerHTML = `
-                    <img src="${product.image}" alt="Placeholder image">
-                    <div>
-                        <h3>${product.name}</h3>
-                        <p>${product.price} x ${product.count}</p>
-                    </div>
-                    <button 
-                        class="btn btn-danger ms-auto" 
-                        zero-do-cart-remove 
-                        zero-cart-id="${product.id}" 
-                        zero-cart-name="${product.name}">X</button>
-                `;
+            if (cart.length > 0) {
+                for (let product of cart) {
+                    let productElement = document.createElement('div');
+                    productElement.className = 'border rounded p-4 mb-2 d-flex align-items-center w-100'
+                    productElement.style.gap = '16px';
+                    productElement.innerHTML = `
+                        <img src="${product.image}" style="height: 100px;" alt="Placeholder image">
+                        <div>
+                            <h3>${product.name}</h3>
+                            <p>${product.price} x ${product.count}</p>
+                        </div>
+                        <button 
+                            class="btn btn-danger ms-auto" 
+                            zero-do-cart-remove 
+                            zero-cart-id="${product.id}" 
+                            zero-cart-name="${product.name}">X</button>
+                    `;
     
-                cartWindow.appendChild(productElement);
+                    cartWindow.appendChild(productElement);
+                }
+            } else {
+                cartWindow.innerHTML = `<p class="fs-3 m-0 w-100 text-center">Корзина пуста</p>`;
             }
         }
 
