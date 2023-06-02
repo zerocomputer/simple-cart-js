@@ -33,29 +33,28 @@
 
     // Reloading cart window
     const reload = () => {
-        if (cartWindow === null)
-            return;
+        if (cartWindow === null) {
+            cartWindow.innerHTML = ``;
 
-        cartWindow.innerHTML = ``;
-
-        for (let product of cart) {
-            let productElement = document.createElement('div');
-            productElement.className = 'border rounded p-4 mb-2 d-flex align-items-center'
-            productElement.style.gap = '16px';
-            productElement.innerHTML = `
-                <img src="${product.image}" alt="Placeholder image">
-                <div>
-                    <h3>${product.name}</h3>
-                    <p>${product.price} x ${product.count}</p>
-                </div>
-                <button 
-                    class="btn btn-danger ms-auto" 
-                    zero-do-cart-remove 
-                    zero-cart-id="${product.id}" 
-                    zero-cart-name="${product.name}">X</button>
-            `;
-
-            cartWindow.appendChild(productElement);
+            for (let product of cart) {
+                let productElement = document.createElement('div');
+                productElement.className = 'border rounded p-4 mb-2 d-flex align-items-center'
+                productElement.style.gap = '16px';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="Placeholder image">
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>${product.price} x ${product.count}</p>
+                    </div>
+                    <button 
+                        class="btn btn-danger ms-auto" 
+                        zero-do-cart-remove 
+                        zero-cart-id="${product.id}" 
+                        zero-cart-name="${product.name}">X</button>
+                `;
+    
+                cartWindow.appendChild(productElement);
+            }
         }
 
         for (let amountElement of document.querySelectorAll('[zero-cart-amount]')) {
